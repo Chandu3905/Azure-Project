@@ -1,0 +1,25 @@
+{
+	"name": "DS_inbound_windows",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Gen2lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "emp_window_data.csv",
+				"folderPath": "sourcedata",
+				"fileSystem": "devcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

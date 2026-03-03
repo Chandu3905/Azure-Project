@@ -1,0 +1,67 @@
+{
+	"name": "tumbling_window_pipeling",
+	"properties": {
+		"activities": [
+			{
+				"name": "Window_start_time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "starttime",
+					"value": {
+						"value": "@pipeline().parameters.window_startime",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Window_end_time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Window_start_time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "endtime",
+					"value": {
+						"value": "@pipeline().parameters.window_endtime",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"window_startime": {
+				"type": "string"
+			},
+			"window_endtime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"starttime": {
+				"type": "String"
+			},
+			"endtime": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-24T14:49:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

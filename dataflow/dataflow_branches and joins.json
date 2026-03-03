@@ -1,0 +1,104 @@
+{
+	"name": "dataflow_branches and joins",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Datflows_csv_employee",
+						"type": "DatasetReference"
+					},
+					"name": "Empinfo"
+				},
+				{
+					"dataset": {
+						"referenceName": "Datflows_csv_department",
+						"type": "DatasetReference"
+					},
+					"name": "Departmentinfo"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "innerjoin"
+				},
+				{
+					"name": "exists1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as short,",
+				"          firstname as string,",
+				"          lastname as string,",
+				"          age as short,",
+				"          salary as short,",
+				"          gender as string,",
+				"          deptno as short,",
+				"          state as string,",
+				"          mobilenumber as long,",
+				"          mail as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Empinfo",
+				"source(output(",
+				"          deptno as short,",
+				"          deptname as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Departmentinfo",
+				"Empinfo, Departmentinfo join(Empinfo@deptno == Departmentinfo@deptno,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> innerjoin",
+				"Empinfo, Departmentinfo exists(Empinfo@deptno == Departmentinfo@deptno,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"innerjoin sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

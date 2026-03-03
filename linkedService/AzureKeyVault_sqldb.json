@@ -1,0 +1,11 @@
+{
+	"name": "AzureKeyVault_sqldb",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://ravikeyvalut.vault.azure.net/"
+		}
+	}
+}

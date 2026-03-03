@@ -1,0 +1,24 @@
+{
+	"name": "LS_SQLDB_KEYVAULT",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "devsqlserverravi.database.windows.net",
+			"database": "devsqldbravi",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "raviserver",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_sqldb",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sqlpaswword"
+			}
+		}
+	}
+}

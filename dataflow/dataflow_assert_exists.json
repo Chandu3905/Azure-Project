@@ -1,0 +1,80 @@
+{
+	"name": "dataflow_assert_exists",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Datflows_assert_emp_csv",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "Datflows_assert_dpt_csv",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "assert1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "filter1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as short,",
+				"          empname as string,",
+				"          gender as string,",
+				"          dob as string,",
+				"          deptid as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          deptid as short,",
+				"          deptname as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1, source2 assert(expectUnique(empid, false, 'assert1'),",
+				"     expectTrue(!isNull(toDate(dob, 'ddMMyyyy')), false, 'assert2'),",
+				"     expectExists(source1@deptid == source2@deptid, false, 'assert3')) ~> assert1",
+				"assert1 derive(ErrorMessage = isError()) ~> derivedColumn1",
+				"derivedColumn1 filter(ErrorMessage ==false()) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

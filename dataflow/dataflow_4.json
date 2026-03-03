@@ -1,0 +1,81 @@
+{
+	"name": "dataflow_4",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Datflows_csv_employee",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as short,",
+				"          firstname as string,",
+				"          lastname as string,",
+				"          age as short,",
+				"          salary as short,",
+				"          gender as string,",
+				"          deptno as short,",
+				"          state as string,",
+				"          mobilenumber as long,",
+				"          mail as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 split(gender=='M',",
+				"     disjoint: false) ~> split1@(Maledata, FemaleData)",
+				"split1@Maledata sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"split1@FemaleData sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

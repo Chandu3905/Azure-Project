@@ -1,0 +1,26 @@
+{
+	"name": "azuresqldb_keyvault_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDB_KEYVAULT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "dept_id",
+				"type": "varchar"
+			},
+			{
+				"name": "dept_name",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "ravidevelopment",
+			"table": "cust_dtls"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

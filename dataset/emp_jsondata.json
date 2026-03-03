@@ -1,0 +1,40 @@
+{
+	"name": "emp_jsondata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Gen2lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "emp_details_3.json",
+				"folderPath": "sourcedata",
+				"fileSystem": "devcontainer"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer"
+				},
+				"name": {
+					"type": "string"
+				},
+				"gender": {
+					"type": "string"
+				},
+				"language": {
+					"type": "string"
+				},
+				"location": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,59 @@
+{
+	"name": "parent pipeling",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ChildPipeline_Sum",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"a": 10,
+						"b": 20
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "childSum",
+					"value": {
+						"value": "@activity('Execute Pipeline1').output.sumResult\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"childSum": {
+				"type": "Integer"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-24T14:49:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

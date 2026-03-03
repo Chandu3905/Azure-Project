@@ -1,0 +1,116 @@
+{
+	"name": "DATAFLOW_CSV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Datflows_csv_employee",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "Datflows_csv_employee",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DATAFLOW_OUTBOUND",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as string,",
+				"          firstname as string,",
+				"          lastname as string,",
+				"          age as string,",
+				"          salary as string,",
+				"          gender as string,",
+				"          deptno as string,",
+				"          state as string,",
+				"          mobilenumber as string,",
+				"          mail as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          empid as string,",
+				"          firstname as string,",
+				"          lastname as string,",
+				"          age as string,",
+				"          salary as string,",
+				"          gender as string,",
+				"          deptno as string,",
+				"          state as string,",
+				"          mobilenumber as string,",
+				"          mail as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1 select(mapColumn(",
+				"          empid,",
+				"          firstname,",
+				"          age,",
+				"          salary,",
+				"          gender,",
+				"          deptno,",
+				"          state,",
+				"          mobilenumber,",
+				"          mail",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     partitionFileNames:['Result_1.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1",
+				"source2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          order_id as string,",
+				"          order_date as string,",
+				"          prod_id as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

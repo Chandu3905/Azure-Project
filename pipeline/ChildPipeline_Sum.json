@@ -1,0 +1,40 @@
+{
+	"name": "ChildPipeline_Sum",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "sumresult",
+					"value": {
+						"value": "@add(pipeline().parameters.a, pipeline().parameters.b)\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"a": {
+				"type": "int"
+			},
+			"b": {
+				"type": "int"
+			}
+		},
+		"variables": {
+			"sumresult": {
+				"type": "Integer"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-24T14:49:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

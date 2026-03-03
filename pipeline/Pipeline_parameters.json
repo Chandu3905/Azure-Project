@@ -1,0 +1,42 @@
+{
+	"name": "Pipeline_parameters",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "msg",
+					"value": {
+						"value": "@concat('prson name is ', pipeline().parameters.prson_name, 'prsn age is ', pipeline().parameters.prsn_age, 'and country is ', pipeline().globalParameters.India)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"prson_name": {
+				"type": "string",
+				"defaultValue": "rahul"
+			},
+			"prsn_age": {
+				"type": "string",
+				"defaultValue": "20"
+			}
+		},
+		"variables": {
+			"msg": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-24T14:49:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
