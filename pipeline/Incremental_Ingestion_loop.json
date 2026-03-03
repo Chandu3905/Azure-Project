@@ -320,7 +320,7 @@
 				}
 			},
 			{
-				"name": "Alerts",
+				"name": "Alert Activity",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
