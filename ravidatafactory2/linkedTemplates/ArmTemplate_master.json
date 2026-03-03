@@ -1,0 +1,242 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ravidatafactory2"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"LS_AzureSql_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_AzureSql'"
+		},
+		"LS_Gen2datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_Gen2datalake'"
+		},
+		"LS_Gen2lake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_Gen2lake'"
+		},
+		"Sql_Connection_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sql_Connection'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://srinivasstgacctb72.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_sqldb_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://ravikeyvalut.vault.azure.net/"
+		},
+		"LS_AzureSql_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ravisqlserver2026.database.windows.net"
+		},
+		"LS_AzureSql_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "ravisqldb"
+		},
+		"LS_AzureSql_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "raviserver"
+		},
+		"LS_Gen2datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raviadfdev2.dfs.core.windows.net/"
+		},
+		"LS_Gen2lake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raviadfdev1.dfs.core.windows.net/"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "devsqlserverravi.database.windows.net"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "devsqldbravi"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "raviserver"
+		},
+		"Sql_Connection_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "devsqlserverravi.database.windows.net"
+		},
+		"Sql_Connection_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "devsqldbravi"
+		},
+		"Sql_Connection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "raviserver"
+		},
+		"tg_tumbling_window_properties_pipeline_parameters_window_startime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime\n"
+		},
+		"tg_tumbling_window_properties_pipeline_parameters_window_endtime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndtime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ravidatafactory2_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"LS_AzureSql_password": {
+						"value": "[parameters('LS_AzureSql_password')]"
+					},
+					"LS_Gen2datalake_accountKey": {
+						"value": "[parameters('LS_Gen2datalake_accountKey')]"
+					},
+					"LS_Gen2lake_accountKey": {
+						"value": "[parameters('LS_Gen2lake_accountKey')]"
+					},
+					"Sql_Connection_password": {
+						"value": "[parameters('Sql_Connection_password')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureKeyVault_sqldb_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault_sqldb_properties_typeProperties_baseUrl')]"
+					},
+					"LS_AzureSql_properties_typeProperties_server": {
+						"value": "[parameters('LS_AzureSql_properties_typeProperties_server')]"
+					},
+					"LS_AzureSql_properties_typeProperties_database": {
+						"value": "[parameters('LS_AzureSql_properties_typeProperties_database')]"
+					},
+					"LS_AzureSql_properties_typeProperties_userName": {
+						"value": "[parameters('LS_AzureSql_properties_typeProperties_userName')]"
+					},
+					"LS_Gen2datalake_properties_typeProperties_url": {
+						"value": "[parameters('LS_Gen2datalake_properties_typeProperties_url')]"
+					},
+					"LS_Gen2lake_properties_typeProperties_url": {
+						"value": "[parameters('LS_Gen2lake_properties_typeProperties_url')]"
+					},
+					"Sql_Connection_properties_typeProperties_server": {
+						"value": "[parameters('Sql_Connection_properties_typeProperties_server')]"
+					},
+					"Sql_Connection_properties_typeProperties_database": {
+						"value": "[parameters('Sql_Connection_properties_typeProperties_database')]"
+					},
+					"Sql_Connection_properties_typeProperties_userName": {
+						"value": "[parameters('Sql_Connection_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ravidatafactory2_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQLDB_KEYVAULT_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQLDB_KEYVAULT_properties_typeProperties_server')]"
+					},
+					"LS_SQLDB_KEYVAULT_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQLDB_KEYVAULT_properties_typeProperties_database')]"
+					},
+					"LS_SQLDB_KEYVAULT_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQLDB_KEYVAULT_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ravidatafactory2_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "ravidatafactory2_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"tg_tumbling_window_properties_pipeline_parameters_window_startime": {
+						"value": "[parameters('tg_tumbling_window_properties_pipeline_parameters_window_startime')]"
+					},
+					"tg_tumbling_window_properties_pipeline_parameters_window_endtime": {
+						"value": "[parameters('tg_tumbling_window_properties_pipeline_parameters_window_endtime')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ravidatafactory2_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "ravidatafactory2_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ravidatafactory2_ArmTemplate_2')]"
+			]
+		}
+	]
+}

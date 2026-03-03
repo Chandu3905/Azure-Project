@@ -1,0 +1,75 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ravidatafactory2"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSql_password": {
+			"value": ""
+		},
+		"LS_Gen2datalake_accountKey": {
+			"value": ""
+		},
+		"LS_Gen2lake_accountKey": {
+			"value": ""
+		},
+		"Sql_Connection_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://srinivasstgacctb72.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_sqldb_properties_typeProperties_baseUrl": {
+			"value": "https://ravikeyvalut.vault.azure.net/"
+		},
+		"LS_AzureSql_properties_typeProperties_server": {
+			"value": "ravisqlserver2026.database.windows.net"
+		},
+		"LS_AzureSql_properties_typeProperties_database": {
+			"value": "ravisqldb"
+		},
+		"LS_AzureSql_properties_typeProperties_userName": {
+			"value": "raviserver"
+		},
+		"LS_Gen2datalake_properties_typeProperties_url": {
+			"value": "https://raviadfdev2.dfs.core.windows.net/"
+		},
+		"LS_Gen2lake_properties_typeProperties_url": {
+			"value": "https://raviadfdev1.dfs.core.windows.net/"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_server": {
+			"value": "devsqlserverravi.database.windows.net"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_database": {
+			"value": "devsqldbravi"
+		},
+		"LS_SQLDB_KEYVAULT_properties_typeProperties_userName": {
+			"value": "raviserver"
+		},
+		"Sql_Connection_properties_typeProperties_server": {
+			"value": "devsqlserverravi.database.windows.net"
+		},
+		"Sql_Connection_properties_typeProperties_database": {
+			"value": "devsqldbravi"
+		},
+		"Sql_Connection_properties_typeProperties_userName": {
+			"value": "raviserver"
+		},
+		"tg_tumbling_window_properties_pipeline_parameters_window_startime": {
+			"value": "@trigger().outputs.windowStartTime\n"
+		},
+		"tg_tumbling_window_properties_pipeline_parameters_window_endtime": {
+			"value": "@trigger().outputs.windowEndtime"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
