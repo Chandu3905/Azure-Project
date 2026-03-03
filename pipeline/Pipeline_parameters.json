@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "msg",
 					"value": {
-						"value": "@concat('prson name is ', pipeline().parameters.prson_name, 'prsn age is ', pipeline().parameters.prsn_age, 'and country is ', pipeline().globalParameters.India)",
+						"value": "The name is ravi",
 						"type": "Expression"
 					}
 				}
